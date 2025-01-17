@@ -223,12 +223,17 @@ function moveTilesMain(x, y, X, Y, xBorder, yBorder, c, d) {
       checker.className = 'grid_cell';
       document.getElementsByClassName('grid').id = 'moved';
     }
-
-    //________
   }
 }
 
 //-------------------------------------------------------
+function showGameOverOverlay() {
+  document.getElementById('game-over-overlay').style.display = 'flex';
+}
+
+function restartGame() {
+  location.reload(); // Restart the game
+}
 
 function cellReset() {
   var count = 0;
@@ -253,6 +258,9 @@ function cellReset() {
   }
   if (count == 16) {
     document.getElementById('status').className = 'lose';
+    setTimeout(() => {
+      showGameOverOverlay();
+    }, 300);
   } else if (document.getElementsByClassName('grid').id == 'moved') {
     cellCreator(1, 1);
   }
@@ -311,6 +319,7 @@ function colorSet(value, tile) {
       tile.style.background = '#2D8A68';
       tile.style.color = 'white';
       tile.style.fontSize = '40px';
+      document.getElementById('status').className = 'loose';
       break;
     case 2048:
       tile.style.background = '#1C9F4E';
